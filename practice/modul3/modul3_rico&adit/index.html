@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar User API</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#181A20;
+    color:#fff;
+}
+
+.container{
+    width:90%;
+    margin:40px auto;
+}
+
+h1{
+    text-align:center;
+    color:#ff7b42;
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+p{
+    text-align:center;
+    color:#bbb;
+    margin-bottom:40px;
+    line-height:1.6;
+}
+
+p span{
+    color:#ff7b42;
+    font-weight:bold;
+}
+
+.grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+
+}
+
+.card{
+
+    background:#232833;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.header{
+
+    display:flex;
+    align-items:center;
+    margin-bottom:20px;
+
+}
+
+.avatar{
+
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#ff7b42;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-right:15px;
+
+}
+
+.name{
+
+    font-size:20px;
+    font-weight:bold;
+
+}
+
+.username{
+
+    color:#aaa;
+    font-size:14px;
+
+}
+
+.info{
+
+    margin:12px 0;
+    color:#ddd;
+
+}
+
+.info i{
+
+    width:30px;
+    color:#7ab6ff;
+
+}
+
+.loader{
+
+    text-align:center;
+    font-size:20px;
+    color:#ff7b42;
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Daftar User API</h1>
+
+
+<div id="users" class="grid">
+    <div class="loader">Loading Data...</div>
+</div>
+
+</div>
+
+<script>
+
+const users=document.getElementById("users");
+
+fetch("https://jsonplaceholder.typicode.com/users")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+users.innerHTML="";
+
+data.forEach(user=>{
+
+users.innerHTML+=`
+
+<div class="card">
+
+<div class="header">
+
+<div class="avatar">
+${user.name.charAt(0)}
+</div>
+
+<div>
+
+<div class="name">
+${user.name}
+</div>
+
+<div class="username">
+@${user.username}
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+<i class="fa-solid fa-envelope"></i>
+${user.email}
+</div>
+
+<div class="info">
+<i class="fa-solid fa-phone"></i>
+${user.phone}
+</div>
+
+<div class="info">
+<i class="fa-solid fa-globe"></i>
+${user.website}
+</div>
+
+<div class="info">
+<i class="fa-solid fa-location-dot"></i>
+${user.address.city}
+</div>
+
+<div class="info">
+<i class="fa-solid fa-building"></i>
+${user.company.name}
+</div>
+
+</div>
+
+`;
+
+});
+
+})
+
+.catch(error=>{
+
+users.innerHTML="<h2 style='color:red;text-align:center'>Gagal mengambil data API</h2>";
+
+console.log(error);
+
+});
+
+</script>
+
+</body>
+</html>
